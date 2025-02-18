@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Loop Visualizer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<h1>Event Loop Visualizer</h1>
-<div class="grid-container">
-    <div class="box code" id="code">
-        <div class="box-header">Code</div>
-        <div class="box-content"></div>
-    </div>
-    <div class="box console" id="console">
-        <div class="box-header">Console</div>
-        <div class="box-content"></div>
-    </div>
-    <div class="box stack" id="stack">
-        <div class="box-header">Call Stack</div>
-        <div class="box-content"></div>
-    </div>
-    <div class="box webapi" id="webapi">
-        <div class="box-header">Web API</div>
-        <div class="box-content"></div>
-    </div>
-    <div class="box macroqueue" id="macroqueue">
-        <div class="box-header">Macro Task Queue</div>
-        <div class="box-content"></div>
-    </div>
-    <div class="box microqueue" id="microqueue">
-        <div class="box-header">Micro Task Queue</div>
-        <div class="box-content"></div>
-    </div>
-    <div class="box buttons" id="buttons">
-        <div class="box-header">Controls</div>
-        <div class="box-content">
-            <button onclick="startAnimation()">Старт</button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Loop Visualizer</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <h1>Event Loop Visualizer</h1>
+        <div class="grid-container">
+            <div class="box code" id="code">
+                <div class="box-header">Code</div>
+                <div class="box-content"></div>
+            </div>
+            <div class="box console" id="console">
+                <div class="box-header">Console</div>
+                <div class="box-content"></div>
+            </div>
+            <div class="box stack" id="stack">
+                <div class="box-header">Call Stack</div>
+                <div class="box-content"></div>
+            </div>
+            <div class="box webapi" id="webapi">
+                <div class="box-header">Web API</div>
+                <div class="box-content"></div>
+            </div>
+            <div class="box macroqueue" id="macroqueue">
+                <div class="box-header">Macro Task Queue</div>
+                <div class="box-content"></div>
+            </div>
+            <div class="box microqueue" id="microqueue">
+                <div class="box-header">Micro Task Queue</div>
+                <div class="box-content"></div>
+            </div>
+            <div class="box buttons" id="buttons">
+                <div class="box-header">Controls</div>
+                <div class="box-content">
+                    <button onclick="startAnimation()">Старт</button>
+                    <button onclick="nextStep()">Следующий шаг</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<script src="script.js"></script>
-</body>
+    </body>
 </html>
