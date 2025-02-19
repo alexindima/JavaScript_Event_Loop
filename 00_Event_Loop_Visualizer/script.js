@@ -89,38 +89,7 @@ async function moveCodeTo(step) {
 function createCodeBlockForMove(block) {
     const rect = block.getBoundingClientRect();
 
-    const siblings = Array.from(block.parentElement.children);
-    const aboveSiblings = siblings.filter(el => el !== block && el.getBoundingClientRect().top < rect.top);
-
-    if (aboveSiblings.length > 0) {
-        const wrapper = document.createElement("div");
-        wrapper.style.position = "absolute";
-        wrapper.style.left = `${rect.left}px`;
-        wrapper.style.top = `${rect.top - rect.height - 8}px`;
-        wrapper.style.width = `${block.parentElement.offsetWidth}px`;
-        wrapper.style.height = `${rect.height}px`;
-        wrapper.style.overflow = "hidden";
-        document.body.appendChild(wrapper);
-
-        aboveSiblings.forEach(el => {
-            const clone = el.cloneNode(true);
-            wrapper.appendChild(clone);
-            el.style.visibility = "hidden";
-        });
-
-        gsap.to(wrapper, {
-            y: rect.height + 8,
-            duration: 0.5,
-            ease: "power2.out",
-            onComplete: () => {
-                aboveSiblings.forEach((el, index) => {
-                    el.style.visibility = "visible";
-                    wrapper.children[index]?.remove();
-                });
-                wrapper.remove();
-            }
-        });
-    }
+    moveAboveSiblingsDown(block, rect);
 
     const copy = block.cloneNode(true);
     copy.style.position = "absolute";
@@ -154,6 +123,87 @@ function createCodeBlockForCopy(step) {
     return copy;
 }
 
+async function destroyElement(step) {
+    const element = document.querySelector(`[data-element-id='${step.elementId}']`);
+    if (!element) {
+        console.warn(`Element with ID ${step.elementId} not found for destruction.`);
+        return;
+    }
+
+    const rect = element.getBoundingClientRect();
+
+    const ghost = element.cloneNode(true);
+    ghost.style.position = "absolute";
+    ghost.style.left = `${rect.left + window.scrollX}px`;
+    ghost.style.top = `${rect.top + window.scrollY}px`;
+    ghost.style.width = `${rect.width}px`;
+    ghost.style.height = `${rect.height}px`;
+    ghost.style.opacity = "1";
+
+    document.body.appendChild(ghost);
+    element.style.visibility = "hidden";
+
+    moveAboveSiblingsDown(element, rect, () => element.remove());
+
+    return new Promise(resolve => {
+        gsap.to(ghost, {
+            y: -150,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+            onComplete: () => {
+                ghost.remove();
+                resolve();
+            }
+        });
+    });
+}
+
+function moveAboveSiblingsDown(element, rect, onCompleteCallback) {
+    const parent = element.parentElement;
+    const aboveSiblings = Array.from(parent.children).filter(el => el !== element && el.getBoundingClientRect().top < rect.top);
+
+    if (aboveSiblings.length === 0) {
+        return;
+    }
+
+    const topSibling = aboveSiblings.reduce((max, el) => {
+        const elRect = el.getBoundingClientRect();
+        return elRect.top > max.top ? elRect : max;
+    }, { top: 0 });
+
+    const wrapper = document.createElement("div");
+    wrapper.style.position = "absolute";
+    wrapper.style.left = `${rect.left}px`;
+    wrapper.style.top = `${topSibling.top - rect.height - 8}px`;
+    wrapper.style.width = `${parent.offsetWidth}px`;
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.gap = `8px`;
+    wrapper.style.overflow = "hidden";
+
+    aboveSiblings.forEach(el => {
+        const clone = el.cloneNode(true);
+        wrapper.appendChild(clone);
+        el.style.visibility = "hidden";
+    });
+
+    document.body.appendChild(wrapper);
+
+    gsap.to(wrapper, {
+        y: rect.height + 8,
+        duration: 0.5,
+        ease: "power2.out",
+        onComplete: () => {
+            aboveSiblings.forEach(el => el.style.visibility = "visible");
+            wrapper.remove();
+            onCompleteCallback?.();
+        }
+    });
+
+    return wrapper;
+}
+
 let currentStep = 0;
 let isAnimationRunning = false;
 let animationInProgress = false;
@@ -166,7 +216,7 @@ async function startAnimation() {
         }
 
         await nextStep();
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
 }
 
@@ -195,8 +245,12 @@ async function nextStep() {
 
         animationInProgress = true;
 
-        highlightCodeLine(step.codeId);
-        await moveCodeTo(step);
+        if (step.destroy) {
+            await destroyElement(step);
+        } else {
+            highlightCodeLine(step.codeId);
+            await moveCodeTo(step);
+        }
 
         animationInProgress = false;
 
