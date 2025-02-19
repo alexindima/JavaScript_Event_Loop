@@ -6,7 +6,7 @@
         <title>Event Loop Visualizer</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
         <link rel="stylesheet" href="styles.css">
-        <script src="script.js"></script>
+        <script type="module" src="script.js"></script>
     </head>
     <body>
         <h1>Event Loop Visualizer</h1>
@@ -38,8 +38,10 @@
             <div class="box buttons" id="buttons">
                 <div class="box-header">Controls</div>
                 <div class="box-content">
-                    <button onclick="startAnimation()">Старт</button>
-                    <button onclick="nextStep()">Следующий шаг</button>
+                    <button id="startBtn">Старт</button>
+                    <button id="nextBtn">Следующий шаг</button>
+                    <button id="stopBtn">Стоп</button>
+                    <button id="resetBtn">Сброс</button>
                 </div>
             </div>
         </div>

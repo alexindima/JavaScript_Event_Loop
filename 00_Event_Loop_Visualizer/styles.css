@@ -60,6 +60,7 @@ h1 {
     border-radius: 10px;
     color: var(--header-text);
     box-shadow: 2px 2px 5px var(--shadow-color);
+    text-align: center;
 }
 
 .box-content {

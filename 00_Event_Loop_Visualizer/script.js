@@ -1,94 +1,39 @@
-const codeLines = [
-    { id: 1, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Start'</span>);" },
-    { id: 2, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Start2'</span>);" },
-    { id: 3, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Start3'</span>);" },
-    { id: 20, text: `<span class='keyword'>setTimeout</span>(() => {
-        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Timeout'</span>);
-        <br>}, <span class='number'>0</span>);` },
-    { id: 30, text: `<span class='keyword'>Promise</span>.<span class='function'>resolve</span>().<span class='function'>then</span>(() => {
-        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Microtask'</span>);
-        <br>});` },
-    { id: 40, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'End'</span>);" }
-];
-
-const steps = [
-    { id: 1, codeRef: 1, from: 'code', to: 'stack', insertPosition: 'bottom', pause: 1 },
-    // { id: 2, codeRef: 2, from: 'code', to: 'stack', insertPosition: 'top', pause: 1 },
-    // { id: 4, codeRef: 3, from: 'code', to: 'stack', insertPosition: 'bottom', pause: 1 },
-    { id: 1, from: 'stack', to: 'webapi', insertPosition: 'bottom', pause: 1 },
-
-    /*{ id: 1, from: 'stack', to: 'webapi', pause: 1 },
-    { id: 1, from: 'webapi', to: 'macroqueue', pause: 1 },
-    { id: 1, from: 'macroqueue', to: 'stack', pause: 1 },
-    { id: 1, from: 'stack', to: 'executed', remove: true, pause: 1 },
-    { id: "custom", from: "macroqueue", to: "stack", code: "Custom Task", pause: 2 }*/
-];
-
-const codeBlocks = {};
-let currentStep = 0;
+import { codeLines, steps } from './code.js';
 
 function renderCode() {
     const codeContainer = document.querySelector("#code > .box-content");
     codeContainer.innerHTML = "";
+    const fragment = document.createDocumentFragment();
     codeLines.forEach(line => {
         const codeElement = document.createElement("div");
         codeElement.className = "code-line";
-        codeElement.dataset.id = line.id;
+        codeElement.dataset.codeId = line.codeId;
         codeElement.innerHTML = line.text;
-        codeContainer.appendChild(codeElement);
+        fragment.appendChild(codeElement);
     });
+
+    codeContainer.appendChild(fragment);
 }
 
-function highlightCodeLine(id) {
-    document.querySelectorAll(".code-line").forEach(el => {
-        el.classList.remove("active-code");
-    });
-    const activeLine = document.querySelector(`.code-line[data-id='${id}']`);
-    if (activeLine) {
-        activeLine.classList.add("active-code");
+async function moveCodeTo(step) {
+    const toEl = document.getElementById(step.to).querySelector(".box-content");
+    if (!toEl) {
+        console.error('Target block not found!');
+        return;
     }
-}
+    const existedCodeBlock = document.querySelector(`[data-element-id='${step.elementId}']`);
+    const code = existedCodeBlock
+        ? createCodeBlockForMove(existedCodeBlock)
+        : createCodeBlockForCopy(step);
 
-function getCodeText(step) {
-    if (step.codeRef) {
-        const found = codeLines.find(line => line.id === step.codeRef);
-        return found ? found.text : "Unknown Code";
-    }
-    return step.code || "Unknown Code";
-}
-
-function createCodeBlock(id, text, from, insertPosition = 'bottom') {
-    const fromEl = document.getElementById(from);
-    if (!fromEl) return;
-
-    const block = document.createElement('div');
-    block.className = 'code-block';
-    block.innerHTML = text;
-    document.body.appendChild(block);
-
-    const rect = fromEl.getBoundingClientRect();
-    block.style.left = `${rect.left + window.scrollX}px`;
-    block.style.top = `${rect.top + window.scrollY}px`;
-
-    codeBlocks[id] = block;
-}
-
-function moveBlock(id, to, insertPosition = 'bottom', remove = false) {
-    const block = codeBlocks[id];
-    if (!block) return;
-
-    const toEl = document.getElementById(to).querySelector(".box-content");
-    if (!toEl) return;
 
     const placeholder = document.createElement("div");
     placeholder.className = "placeholder";
-    placeholder.style.width = `${block.offsetWidth}px`;
-    placeholder.style.height = `${block.offsetHeight}px`;
-    placeholder.style.opacity = "0.2";
+    placeholder.style.width = `${code.offsetWidth}px`;
+    placeholder.style.height = `${code.offsetHeight}px`;
+    placeholder.style.opacity = "0";
 
-    if (insertPosition === "top") {
-        toEl.prepend(placeholder);
-    } else {
+    if (step.insertPosition === "bottom") {
         const wrapper = document.createElement("div");
         wrapper.classList.add("box-content");
         wrapper.style.position = "absolute";
@@ -109,7 +54,7 @@ function moveBlock(id, to, insertPosition = 'bottom', remove = false) {
         toEl.appendChild(placeholder);
 
         gsap.to(wrapper, {
-            y: -block.offsetHeight - 8,
+            y: -code.offsetHeight - 8,
             duration: 0.5,
             ease: "power2.out",
             onComplete: () => {
@@ -117,48 +62,162 @@ function moveBlock(id, to, insertPosition = 'bottom', remove = false) {
                 wrapper.remove();
             }
         });
+    } else {
+        toEl.prepend(placeholder);
     }
 
     const rect = placeholder.getBoundingClientRect();
 
-    gsap.to(block, {
-        x: rect.left - block.offsetLeft,
-        y: rect.top - block.offsetTop,
-        duration: 1,
-        ease: "power2.out",
-        onComplete: () => {
-            placeholder.replaceWith(block);
-            block.style.transform = "initial";
-            block.style.position = "relative";
-            block.style.left = "initial";
-            block.style.top = "initial";
-            wrapper.remove();
-        }
+    return new Promise(resolve => {
+        gsap.to(code, {
+            x: rect.left - code.offsetLeft,
+            y: rect.top - code.offsetTop,
+            duration: 1,
+            ease: "power2.out",
+            onComplete: () => {
+                placeholder.replaceWith(code);
+                code.style.transform = "initial";
+                code.style.position = "relative";
+                code.style.left = "initial";
+                code.style.top = "initial";
+                resolve();
+            }
+        });
     });
 }
 
+function createCodeBlockForMove(block) {
+    const rect = block.getBoundingClientRect();
 
+    const siblings = Array.from(block.parentElement.children);
+    const aboveSiblings = siblings.filter(el => el !== block && el.getBoundingClientRect().top < rect.top);
+
+    if (aboveSiblings.length > 0) {
+        const wrapper = document.createElement("div");
+        wrapper.style.position = "absolute";
+        wrapper.style.left = `${rect.left}px`;
+        wrapper.style.top = `${rect.top - rect.height - 8}px`;
+        wrapper.style.width = `${block.parentElement.offsetWidth}px`;
+        wrapper.style.height = `${rect.height}px`;
+        wrapper.style.overflow = "hidden";
+        document.body.appendChild(wrapper);
+
+        aboveSiblings.forEach(el => {
+            const clone = el.cloneNode(true);
+            wrapper.appendChild(clone);
+            el.style.visibility = "hidden";
+        });
+
+        gsap.to(wrapper, {
+            y: rect.height + 8,
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => {
+                aboveSiblings.forEach((el, index) => {
+                    el.style.visibility = "visible";
+                    wrapper.children[index]?.remove();
+                });
+                wrapper.remove();
+            }
+        });
+    }
+
+    const copy = block.cloneNode(true);
+    copy.style.position = "absolute";
+    copy.style.left = `${rect.left}px`;
+    copy.style.top = `${rect.top}px`;
+    copy.className = 'code-block';
+    document.body.appendChild(copy);
+
+    block.remove();
+
+    return copy;
+}
+
+function createCodeBlockForCopy(step) {
+    const block = document.querySelector(`[data-code-id='${step.codeId}']`);
+    if (!block) {
+        console.error(`Block with codeId ${step.codeId} not found!`);
+        return null;
+    }
+
+    const rect = block.getBoundingClientRect();
+
+    const copy = block.cloneNode(true);
+    copy.style.position = "absolute";
+    copy.style.left = `${rect.left}px`;
+    copy.style.top = `${rect.top}px`;
+    copy.className = 'code-block';
+    copy.dataset.elementId = step.elementId;
+    document.body.appendChild(copy);
+
+    return copy;
+}
+
+let currentStep = 0;
+let isAnimationRunning = false;
+let animationInProgress = false;
 
 async function startAnimation() {
-    for (currentStep = 0; currentStep < steps.length; currentStep++) {
+    isAnimationRunning = true;
+    for (; currentStep < steps.length;) {
+        if (!isAnimationRunning) {
+            break;
+        }
+
         await nextStep();
-        await new Promise(resolve => setTimeout(resolve, step.pause * 1000));
+        await new Promise(resolve => setTimeout(resolve, 2000));
     }
+}
+
+function stopAnimation() {
+    isAnimationRunning = false;
+}
+
+async function resetAnimation() {
+    while (animationInProgress) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    stopAnimation();
+    currentStep = 0;
+
+    document.querySelectorAll(".box-content:not(#buttons .box-content)").forEach(box => {
+        box.innerHTML = "";
+    });
+
+    renderCode();
 }
 
 async function nextStep() {
     if (currentStep < steps.length) {
         const step = steps[currentStep];
 
-        const codeText = getCodeText(step);
-        if (step.codeRef) {
-            highlightCodeLine(step.codeRef);
-        }
+        animationInProgress = true;
 
-        createCodeBlock(step.id, codeText, step.from);
-        moveBlock(step.id, step.to, step.insertPosition, step.remove);
+        highlightCodeLine(step.codeId);
+        await moveCodeTo(step);
+
+        animationInProgress = false;
+
         currentStep++;
     }
 }
 
-document.addEventListener("DOMContentLoaded", renderCode);
+function highlightCodeLine(codeId) {
+    document.querySelectorAll(".code-line").forEach(el => {
+        el.classList.remove("active-code");
+    });
+
+    const activeLine = document.querySelector(`.code-line[data-code-id='${codeId}']`);
+    activeLine?.classList.add("active-code");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderCode();
+
+    document.getElementById("startBtn").addEventListener("click", startAnimation);
+    document.getElementById("nextBtn").addEventListener("click", nextStep);
+    document.getElementById("stopBtn").addEventListener("click", stopAnimation);
+    document.getElementById("resetBtn").addEventListener("click", resetAnimation);
+});
