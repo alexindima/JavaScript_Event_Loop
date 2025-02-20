@@ -13,7 +13,8 @@
     --border-microqueue: #FFB86C;
     --border-code: #8BE9FD;
     --border-console: #F1FA8C;
-    --border-buttons: #FF79C6;
+    --border-buttons: #eadfa8;
+    --border-buttons-active: #1b5eda;
 
     --border-thickness: 4px;
 }
@@ -151,9 +152,38 @@ h1 {
     grid-area: buttons;
     border-color: var(--border-buttons);
 
-    .box-header {
-        border: var(--border-thickness) solid var(--border-buttons);
+    button {
+        padding: 0;
+        margin-top: 36px;
+        box-sizing: border-box;
+        background-color: var(--border-buttons);
+        border: 4px solid var(--border-buttons);
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        svg {
+            height: 36px;
+            width: 36px;
+        }
     }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    button:disabled {
+        background-color: gray;
+        border-color: gray;
+        cursor: not-allowed;
+    }
+
+    button:disabled:hover {
+        transform: none;
+    }
+
+    .active {
+        border: 4px solid var(--border-buttons-active);
+    }
+
 }
 
 .code-block {

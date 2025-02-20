@@ -1,4 +1,92 @@
-import { codeLines, steps } from './code.js';
+import { codeLines, steps } from '../code.js';
+
+let currentStep = 0;
+let isAnimationRunning = false;
+let animationInProgress = false;
+
+async function startAnimation() {
+    setActiveButton("startBtn");
+    isAnimationRunning = true;
+    for (; currentStep < steps.length;) {
+        if (!isAnimationRunning) {
+            break;
+        }
+        await nextStep();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    setActiveButton("stopBtn");
+}
+
+function stopAnimation() {
+    isAnimationRunning = false;
+    setActiveButton("stopBtn");
+}
+
+async function resetAnimation() {
+    while (animationInProgress) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    stopAnimation();
+    currentStep = 0;
+    document.querySelectorAll(".box-content:not(#buttons .box-content)").forEach(box => {
+        box.innerHTML = "";
+    });
+    renderCode();
+    setActiveButton("resetBtn");
+    updateButtonState();
+}
+
+async function nextStep() {
+    if (animationInProgress) {
+        return;
+    }
+
+    if (currentStep < steps.length) {
+        if (!isAnimationRunning) {
+            setActiveButton("nextBtn");
+        }
+        const step = steps[currentStep];
+        animationInProgress = true;
+
+        if (step.destroy) {
+            await destroyElement(step);
+        } else {
+            highlightCodeLine(step.codeId);
+            await moveCodeTo(step);
+        }
+
+        animationInProgress = false;
+        if (!isAnimationRunning) {
+            setActiveButton("stopBtn");
+        }
+        currentStep++;
+        updateButtonState();
+    }
+}
+
+function setActiveButton(activeButtonId) {
+    const activeButton = document.getElementById(activeButtonId)
+    document.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+    if (activeButton) {
+        activeButton.classList.add("active");
+    }
+}
+
+function updateButtonState() {
+    const isDisabled = currentStep >= steps.length;
+    document.getElementById("startBtn").disabled = isDisabled;
+    document.getElementById("nextBtn").disabled = isDisabled;
+    document.getElementById("stopBtn").disabled = isDisabled;
+}
+
+function highlightCodeLine(codeId) {
+    document.querySelectorAll(".code-line").forEach(el => {
+        el.classList.remove("active-code");
+    });
+
+    const activeLine = document.querySelector(`.code-line[data-code-id='${codeId}']`);
+    activeLine?.classList.add("active-code");
+}
 
 function renderCode() {
     const codeContainer = document.querySelector("#code > .box-content");
@@ -202,69 +290,6 @@ function moveAboveSiblingsDown(element, rect, onCompleteCallback) {
     });
 
     return wrapper;
-}
-
-let currentStep = 0;
-let isAnimationRunning = false;
-let animationInProgress = false;
-
-async function startAnimation() {
-    isAnimationRunning = true;
-    for (; currentStep < steps.length;) {
-        if (!isAnimationRunning) {
-            break;
-        }
-
-        await nextStep();
-        await new Promise(resolve => setTimeout(resolve, 1000));
-    }
-}
-
-function stopAnimation() {
-    isAnimationRunning = false;
-}
-
-async function resetAnimation() {
-    while (animationInProgress) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-    }
-
-    stopAnimation();
-    currentStep = 0;
-
-    document.querySelectorAll(".box-content:not(#buttons .box-content)").forEach(box => {
-        box.innerHTML = "";
-    });
-
-    renderCode();
-}
-
-async function nextStep() {
-    if (currentStep < steps.length) {
-        const step = steps[currentStep];
-
-        animationInProgress = true;
-
-        if (step.destroy) {
-            await destroyElement(step);
-        } else {
-            highlightCodeLine(step.codeId);
-            await moveCodeTo(step);
-        }
-
-        animationInProgress = false;
-
-        currentStep++;
-    }
-}
-
-function highlightCodeLine(codeId) {
-    document.querySelectorAll(".code-line").forEach(el => {
-        el.classList.remove("active-code");
-    });
-
-    const activeLine = document.querySelector(`.code-line[data-code-id='${codeId}']`);
-    activeLine?.classList.add("active-code");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
