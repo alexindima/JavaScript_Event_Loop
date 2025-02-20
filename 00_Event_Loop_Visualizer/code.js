@@ -13,10 +13,12 @@ export const codeLines = [
 
 export const steps = [
     { elementId: 1, codeId: 1, to: 'stack' },
-    { elementId: 2, codeId: 2, to: 'stack' },
+    { elementId: 1, codeId: 1, to: 'webapi' },
+    { elementId: 1, codeId: 1, to: 'console', newCode: "<span class='console'>Start</span>" },
+    /*{ elementId: 2, codeId: 2, to: 'stack' },
     { elementId: 3, codeId: 3, to: 'stack' },
     { elementId: 1, codeId: 1, destroy: true },
-    { elementId: 3, codeId: 3, destroy: true },
+    { elementId: 3, codeId: 3, destroy: true },*/
     /*{ elementId: 1, codeId: 1, to: 'stack', insertPosition: 'bottom' },
     { elementId: 6, codeId: 2, to: 'stack' },
     { elementId: 1, codeId: 1, to: 'webapi' },

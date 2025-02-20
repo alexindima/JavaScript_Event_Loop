@@ -111,7 +111,7 @@ async function moveCodeTo(step) {
     }
     const existedCodeBlock = document.querySelector(`[data-element-id='${step.elementId}']`);
     const code = existedCodeBlock
-        ? createCodeBlockForMove(existedCodeBlock)
+        ? createCodeBlockForMove(step)
         : createCodeBlockForCopy(step);
 
 
@@ -174,7 +174,13 @@ async function moveCodeTo(step) {
     });
 }
 
-function createCodeBlockForMove(block) {
+function createCodeBlockForMove(step) {
+    const block = document.querySelector(`[data-element-id='${step.elementId}']`);
+    if (!block) {
+        console.error(`Block with data-element-idId ${step.elementId} not found!`);
+        return null;
+    }
+
     const rect = block.getBoundingClientRect();
 
     moveAboveSiblingsDown(block, rect);
@@ -184,6 +190,10 @@ function createCodeBlockForMove(block) {
     copy.style.left = `${rect.left}px`;
     copy.style.top = `${rect.top}px`;
     copy.className = 'code-block';
+    if (step.newCode) {
+        copy.innerHTML = `<div class="code-line">${step.newCode}</div>`;
+    }
+
     document.body.appendChild(copy);
 
     block.remove();
@@ -206,6 +216,10 @@ function createCodeBlockForCopy(step) {
     copy.style.top = `${rect.top}px`;
     copy.className = 'code-block';
     copy.dataset.elementId = step.elementId;
+    if (step.newCode) {
+        copy.innerHTML = `<div class="code-line">${step.newCode}</div>`;
+    }
+
     document.body.appendChild(copy);
 
     return copy;
