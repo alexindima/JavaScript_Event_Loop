@@ -80,11 +80,11 @@ function updateButtonState() {
 }
 
 function highlightCodeLine(codeId) {
-    document.querySelectorAll(".code-line").forEach(el => {
+    document.querySelectorAll("#code .box-content > *").forEach(el => {
         el.classList.remove("active-code");
     });
 
-    const activeLine = document.querySelector(`.code-line[data-code-id='${codeId}']`);
+    const activeLine = document.querySelector(`[data-code-id='${codeId}']`);
     activeLine?.classList.add("active-code");
 }
 
@@ -94,7 +94,6 @@ function renderCode() {
     const fragment = document.createDocumentFragment();
     codeLines.forEach(line => {
         const codeElement = document.createElement("div");
-        codeElement.className = "code-line";
         codeElement.dataset.codeId = line.codeId;
         codeElement.innerHTML = line.text;
         fragment.appendChild(codeElement);
@@ -191,7 +190,7 @@ function createCodeBlockForMove(step) {
     copy.style.top = `${rect.top}px`;
     copy.className = 'code-block';
     if (step.newCode) {
-        copy.innerHTML = `<div class="code-line">${step.newCode}</div>`;
+        copy.innerHTML = step.newCode;
     }
 
     document.body.appendChild(copy);
@@ -217,7 +216,7 @@ function createCodeBlockForCopy(step) {
     copy.className = 'code-block';
     copy.dataset.elementId = step.elementId;
     if (step.newCode) {
-        copy.innerHTML = `<div class="code-line">${step.newCode}</div>`;
+        copy.innerHTML = step.newCode;
     }
 
     document.body.appendChild(copy);
