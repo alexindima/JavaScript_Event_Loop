@@ -254,6 +254,7 @@ async function destroyElement(step) {
             ease: "power2.out",
             onComplete: () => {
                 ghost.remove();
+                element.remove();
                 resolve();
             }
         });
