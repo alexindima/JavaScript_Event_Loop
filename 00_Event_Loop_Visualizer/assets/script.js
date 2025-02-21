@@ -108,11 +108,16 @@ async function moveCodeTo(step) {
         console.error('Target block not found!');
         return;
     }
-    const existedCodeBlock = document.querySelector(`[data-element-id='${step.elementId}']`);
-    const code = existedCodeBlock
-        ? createCodeBlockForMove(step)
-        : createCodeBlockForCopy(step);
 
+    let code;
+    if (step.from) {
+        code = createCodeBlock(step);
+    } else {
+        const existedCodeBlock = document.querySelector(`[data-element-id='${step.elementId}']`);
+        code = existedCodeBlock
+            ? createCodeBlockForMove(step)
+            : createCodeBlockForCopy(step);
+    }
 
     const placeholder = document.createElement("div");
     placeholder.className = "placeholder";
@@ -121,6 +126,8 @@ async function moveCodeTo(step) {
     placeholder.style.opacity = "0";
 
     if (step.insertPosition === "bottom") {
+        toEl.appendChild(placeholder);
+    } else if (step.insertPosition === "bottom-shift") {
         const wrapper = document.createElement("div");
         wrapper.classList.add("box-content");
         wrapper.style.position = "absolute";
@@ -188,6 +195,7 @@ function createCodeBlockForMove(step) {
     copy.style.position = "absolute";
     copy.style.left = `${rect.left}px`;
     copy.style.top = `${rect.top}px`;
+    copy.style.width = `${rect.width}px`;
     copy.className = 'code-block';
     if (step.newCode) {
         copy.innerHTML = step.newCode;
@@ -198,6 +206,33 @@ function createCodeBlockForMove(step) {
     block.remove();
 
     return copy;
+}
+
+function createCodeBlock(step) {
+    if (!step.newCode) {
+        console.error(`For new code from block must be set newCode option!`);
+    }
+
+    const fromEl = document.getElementById(step.from)?.querySelector(".box-content");
+    if (!fromEl) {
+        console.error(`Source block '${step.from}' not found!`);
+        return;
+    }
+
+    const rect = fromEl.getBoundingClientRect();
+
+    const newElement = document.createElement("div");
+    newElement.style.position = "absolute";
+    newElement.style.left = `${rect.left}px`;
+    newElement.style.top = `${rect.top}px`;
+    newElement.style.width = `${rect.width - 10}px`;
+    newElement.className = 'code-block';
+    newElement.dataset.elementId = step.elementId;
+    newElement.innerHTML = step.newCode;
+
+    document.body.appendChild(newElement);
+
+    return newElement;
 }
 
 function createCodeBlockForCopy(step) {
@@ -213,6 +248,7 @@ function createCodeBlockForCopy(step) {
     copy.style.position = "absolute";
     copy.style.left = `${rect.left}px`;
     copy.style.top = `${rect.top}px`;
+    copy.style.width = `${rect.width}px`;
     copy.className = 'code-block';
     copy.dataset.elementId = step.elementId;
     if (step.newCode) {
