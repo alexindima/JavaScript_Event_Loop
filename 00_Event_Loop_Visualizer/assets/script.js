@@ -48,10 +48,12 @@ async function nextStep() {
         const step = steps[currentStep];
         animationInProgress = true;
 
+        highlightCodeLine(step.highlight);
+        subHighlightCodeLine(step.subHighlight);
+
         if (step.destroy) {
             await destroyElement(step);
         } else {
-            highlightCodeLine(step.codeId);
             await moveCodeTo(step);
         }
 
@@ -79,14 +81,54 @@ function updateButtonState() {
     document.getElementById("stopBtn").disabled = isDisabled;
 }
 
-function highlightCodeLine(codeId) {
+function highlightCodeLine(highlight) {
     document.querySelectorAll("#code .box-content > *").forEach(el => {
         el.classList.remove("active-code");
     });
 
-    const activeLine = document.querySelector(`[data-code-id='${codeId}']`);
-    activeLine?.classList.add("active-code");
+    const activeLine = document.querySelector(`[data-code-id='${highlight?.codeId}']`);
+    if (!activeLine) {
+        return;
+    }
+
+    if (highlight.line) {
+        const lines = activeLine.innerHTML.split("<br>");
+        if (highlight.line >= 0 && highlight.line < lines.length) {
+            lines[highlight.line] = `<span class='active-code new-code'>${lines[highlight.line]}</span>`;
+            activeLine.innerHTML = lines.join("<br>");
+        }
+    } else {
+        activeLine.classList.add("active-code");
+    }
 }
+
+function subHighlightCodeLine(subHighlight) {
+    document.querySelectorAll("#code .box-content *").forEach(el => {
+        el.classList.remove("sub-active-code");
+    });
+
+    if (!subHighlight) {
+        return;
+    }
+
+    subHighlight.forEach((el) => {
+        const subActiveLine = document.querySelector(`[data-code-id='${el?.codeId}']`);
+        if (!subActiveLine) {
+            return;
+        }
+
+        if (el.line) {
+            const lines = subActiveLine.innerHTML.split("<br>");
+            if (el.line >= 0 && el.line < lines.length) {
+                lines[el.line - 1] = `<span class='sub-active-code new-code'>${lines[el.line - 1]}</span>`;
+                subActiveLine.innerHTML = lines.join("<br>");
+            }
+        } else {
+            subActiveLine.classList.add("sub-active-code");
+        }
+    })
+}
+
 
 function renderCode() {
     const codeContainer = document.querySelector("#code > .box-content");

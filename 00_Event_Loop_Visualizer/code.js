@@ -1,28 +1,33 @@
 export const codeLines = [
-    { codeId: 1, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Start'</span>);" },
-    { codeId: 2, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Start2'</span>);" },
-    { codeId: 3, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Start3'</span>);" },
-    { codeId: 20, text: `<span class='keyword'>setTimeout</span>(() => {
-        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Timeout'</span>);
-        <br>}, <span class='number'>0</span>);` },
-    { codeId: 30, text: `<span class='keyword'>Promise</span>.<span class='function'>resolve</span>().<span class='function'>then</span>(() => {
-        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'Microtask'</span>);
-        <br>});` },
-    { codeId: 40, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'End'</span>);" }
+    { codeId: 1, text: `
+        <span class='keyword'>function </span><span class='function'>first</span>() {
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>"First"</span>);
+        <br>}`
+    },
+    { codeId: 2, text: '&nbsp;'},
+    { codeId: 3, text: `
+        <span class='keyword'>function </span><span class='function'>second</span>() {
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>"Second"</span>);
+        <br>}`
+    },
+    { codeId: 4, text: '&nbsp;'},
+    { codeId: 5, text: "<span class='function'>first</span>();" },
+    { codeId: 6, text: "<span class='function'>second</span>();" },
+    { codeId: 7, text: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>'End'</span>);" }
 ];
 
 export const steps = [
-    { elementId: 1, codeId: 1, to: 'stack' },
-    { elementId: 1, codeId: 1, to: 'webapi' },
-    { elementId: 1, codeId: 1, to: 'console', newCode: "<span class='console'>Start</span>" },
-    /*{ elementId: 2, codeId: 2, to: 'stack' },
-    { elementId: 3, codeId: 3, to: 'stack' },
-    { elementId: 1, codeId: 1, destroy: true },
-    { elementId: 3, codeId: 3, destroy: true },*/
-    /*{ elementId: 1, codeId: 1, to: 'stack', insertPosition: 'bottom' },
-    { elementId: 6, codeId: 2, to: 'stack' },
-    { elementId: 1, codeId: 1, to: 'webapi' },
-    { elementId: 1, codeId: 3, destroy: true },
-    { elementId: 2, codeId: 2, to: 'stack', insertPosition: 'top' },
-    { elementId: 3, codeId: 3, to: 'stack', insertPosition: 'bottom' },*/
+    { elementId: 1, codeId: 5, to: 'stack', highlight: { codeId: 5 } },
+    { elementId: 2, codeId: 1, to: 'stack', highlight: { codeId: 5 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>\"First\"</span>);" },
+    { elementId: 2, to: 'webapi', highlight: { codeId: 5 }, subHighlight: [{ codeId: 1, line: 2 }] },
+    { elementId: 2, to: 'console', highlight: { codeId: 5 }, subHighlight: [{ codeId: 1, line: 2 }], insertPosition: "bottom", newCode: "<span class='console'>First</span>" },
+    { elementId: 1, destroy: true, highlight: { codeId: 5 } },
+    { elementId: 3, codeId: 6, to: 'stack', highlight: { codeId: 6 } },
+    { elementId: 4, codeId: 3, to: 'stack', highlight: { codeId: 6 }, subHighlight: [{ codeId: 3, line: 2 }], newCode: "<span class='keyword'>console</span>.<span class='function'>log</span>(<span class='string'>\"Second\"</span>);" },
+    { elementId: 4, to: 'webapi', highlight: { codeId: 6 }, subHighlight: [{ codeId: 3, line: 2 }] },
+    { elementId: 4, to: 'console', highlight: { codeId: 6 }, subHighlight: [{ codeId: 3, line: 2 }], insertPosition: "bottom", newCode: "<span class='console'>Second</span>" },
+    { elementId: 3, destroy: true, highlight: { codeId: 6 } },
+    { elementId: 5, codeId: 7, to: 'stack', highlight: { codeId: 7 } },
+    { elementId: 5, to: 'webapi', highlight: { codeId: 7 } },
+    { elementId: 5, to: 'console', highlight: { codeId: 7 }, insertPosition: "bottom", newCode: "<span class='console'>End</span>" },
 ];
