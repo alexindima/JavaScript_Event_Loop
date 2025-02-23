@@ -193,7 +193,6 @@ body {
 .code-block {
     position: absolute;
     border-radius: 5px;
-    display: flex;
     align-items: center;
 }
 

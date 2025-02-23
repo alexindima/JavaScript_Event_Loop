@@ -31,3 +31,15 @@ export const steps = [
     { elementId: 5, to: 'webapi', highlight: { codeId: 7 } },
     { elementId: 5, to: 'console', highlight: { codeId: 7 }, insertPosition: "bottom", newCode: "<span class='console'>End</span>" },
 ];
+
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Timeout");
+}, 0);
+
+for (let i = 0; i < 2000; i++) {
+    console.log("Loop");
+} // Более тяжелая блокировка
+
+console.log("End");
