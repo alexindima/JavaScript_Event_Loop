@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>requestAnimationFrame Demo</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: #ffffff;
+                padding: 20px;
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+            }
+            .keyword { color: #d37f15; }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+            .number { color: #6897BB; }
+        </style>
+    </head>
+    <body>
+        <h2>requestAnimationFrame Several with long</h2>
+        <pre>
+            <span class="function">requestAnimationFrame</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 1"</span>);
+                <span class="function">setTimeout</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"setTimeout - новый цикл"</span>), <span class="number">0</span>);
+            });
+
+            <span class="function">requestAnimationFrame</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 2 (долгая операция)"</span>);
+                <span class="keyword">let</span> start = <span class="object">performance</span>.<span class="function">now</span>();
+                <span class="keyword">while</span> (<span class="object">performance</span>.<span class="function">now</span>() - start < <span class="number">150</span>) {}
+            });
+
+            <span class="function">requestAnimationFrame</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 3"</span>);
+            });
+        </pre>
+
+        <script>
+            requestAnimationFrame(() => {
+                console.log("RAF 1");
+                setTimeout(() => console.log("setTimeout - новый цикл"), 0);
+            });
+
+            requestAnimationFrame(() => {
+                console.log("RAF 2 (долгая операция)");
+                let start = performance.now();
+                while (performance.now() - start < 150) {}
+            });
+
+            requestAnimationFrame(() => {
+                console.log("RAF 3");
+            });
+        </script>
+    </body>
+</html>

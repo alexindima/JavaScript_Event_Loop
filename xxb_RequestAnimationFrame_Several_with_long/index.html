@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>requestAnimationFrame vs Microtasks vs Macrotasks</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: #ffffff;
+                padding: 20px;
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+            }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+            .number { color: #6897BB; }
+        </style>
+    </head>
+    <body>
+        <h2>requestAnimationFrame vs Microtasks vs Macrotasks</h2>
+        <pre>
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
+
+            <span class="function">setTimeout</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"setTimeout (макротаска)"</span>), <span class="number">0</span>);
+
+            <span class="object">Promise</span>.<span class="function">resolve</span>().<span class="function">then</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 1"</span>));
+
+            <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame 1"</span>));
+
+            <span class="object">Promise</span>.<span class="function">resolve</span>().<span class="function">then</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 2"</span>));
+
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"End"</span>);
+        </pre>
+
+        <script>
+            console.log("Start");
+
+            setTimeout(() => console.log("Macrotask"), 0);
+
+            Promise.resolve().then(() => console.log("Microtask 1"));
+
+            requestAnimationFrame(() => console.log("requestAnimationFrame"));
+
+            Promise.resolve().then(() => console.log("Microtask 2"));
+
+            console.log("End");
+        </script>
+    </body>
+</html>
