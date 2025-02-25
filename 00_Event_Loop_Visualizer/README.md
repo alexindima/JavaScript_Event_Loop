@@ -1,7 +1,7 @@
 # Event Loop Visualizer
 
 ## Описание проекта
-![img.png](00_Event_Loop_Visualizer/assets/img.png)
+![img.png](assets/img.png)
 **Event Loop Visualizer** – это веб-приложение, предназначенное для визуализации работы Event Loop в JavaScript. Оно позволяет наглядно демонстрировать, как выполняются задачи в стеке вызовов (Call Stack), Web API, очередях задач (Macro Task Queue и Micro Task Queue).
 
 ## Структура проекта
