@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Loop Demo</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: #ffffff;
+                padding: 20px;
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+                text-align: left;
+            }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+            .number { color: #6897BB; }
+        </style>
+    </head>
+    <body>
+        <h2>All Microtasks demo</h2>
+        <pre>
+            <span class="function">setTimeout</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout 1"</span>);
+            }, <span class="number">0</span>);
+
+            <span class="function">queueMicrotask</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 1"</span>);
+            });
+
+            <span class="function">requestAnimationFrame</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF"</span>);
+
+                <span class="function">setTimeout</span>(() => {
+                    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout 2"</span>);
+                }, <span class="number">0</span>);
+
+                <span class="function">queueMicrotask</span>(() => {
+                    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 2"</span>);
+                });
+            });
+
+            <span class="function">requestIdleCallback</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestIdleCallback"</span>);
+
+                <span class="function">setTimeout</span>(() => {
+                    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout 3"</span>);
+                }, <span class="number">0</span>);
+
+                <span class="function">queueMicrotask</span>(() => {
+                    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 3"</span>);
+                });
+            });
+            </pre>
+
+        <script>
+            setTimeout(() => {
+                console.log("Timeout 1");
+            }, 0);
+
+            queueMicrotask(() => {
+                console.log("Microtask 1");
+            });
+
+            requestAnimationFrame(() => {
+                console.log("RAF");
+
+                setTimeout(() => {
+                    console.log("Timeout 2");
+                }, 0);
+
+                queueMicrotask(() => {
+                    console.log("Microtask 2");
+                });
+            });
+
+            requestIdleCallback(() => {
+                console.log("requestIdleCallback");
+
+                setTimeout(() => {
+                    console.log("Timeout 3");
+                }, 0);
+
+                queueMicrotask(() => {
+                    console.log("Microtask 3");
+                });
+            });
+        </script>
+    </body>
+</html>

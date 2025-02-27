@@ -58,3 +58,19 @@ export const steps = [
     { elementId: 10, codeId: 5, to: 'microqueue', highlight: { codeId: 5 }, subHighlight: [{ codeId: 5, line: 3 }], newCode: "<span class='function'>recursiveMicrotask</span>();" },
     { elementId: 8, codeId: 7, destroy: true },
 ];
+
+for (let i = 1; i <= 5; i++) {
+    setTimeout(() => {
+        let start = performance.now();
+        while (performance.now() - start < 1000) {}
+        console.log(`Timeout ${i * 1000}`);
+    }, 0);
+}
+
+requestIdleCallback(() => {
+    console.log("Idle Task (с таймаутом 2000 мс)");
+}, { timeout: 2000 });
+
+requestIdleCallback(() => {
+    console.log("Idle Task (без таймаута)");
+});

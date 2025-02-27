@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Loop, CSS Animation & requestIdleCallback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: white;
+            padding: 20px;
+        }
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin: 20px auto;
+            animation: fade 2s infinite alternate;
+        }
+        @keyframes fade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        pre {
+            background-color: #3c3f41;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            text-align: left;
+        }
+        .object { color: #9876AA; font-weight: bold; }
+        .function { color: #FFC66D; }
+        .string { color: #6A8759; }
+        .number { color: #6897BB; }
+    </style>
+</head>
+<body>
+<h2>Event Loop, CSS Animation & requestIdleCallback</h2>
+<p>Наблюдаем, как requestIdleCallback работает при загруженном Event Loop</p>
+
+<pre>
+    <span class="function">requestAnimationFrame</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Heavy Task in RAF"</span>);
+    });
+
+    <span class="function">requestIdleCallback</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task (без таймаута)"</span>);
+    });
+
+    <span class="function">requestIdleCallback</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task (с timeout: 2000)"</span>);
+    }, { timeout: <span class="number">2000</span> });
+</pre>
+
+<div class="animated-box"></div>
+
+<script>
+    function heavyLoop() {
+        let start = performance.now();
+        while (performance.now() - start < 50) {}
+        console.log("Heavy Task in RAF");
+        requestAnimationFrame(heavyLoop);
+    }
+    requestAnimationFrame(heavyLoop);
+
+    requestIdleCallback(() => {
+        console.log("Idle Task (без таймаута)");
+    });
+
+    requestIdleCallback(() => {
+        console.log("Idle Task (с timeout: 2000)");
+    }, { timeout: 2000 });
+</script>
+</body>
+</html>
