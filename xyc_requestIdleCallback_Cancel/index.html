@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cancel requestIdleCallback Demo</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: #ffffff;
+                padding: 20px;
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+            }
+            .keyword { color: #d37f15; }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+        </style>
+    </head>
+    <body>
+        <h2>requestIdleCallback Cancel</h2>
+        <pre>
+            <span class="keyword">let</span> idleID1 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 1"</span>));
+            <span class="keyword">let</span> idleID2 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 2"</span>));
+            <span class="keyword">let</span> idleID3 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 3"</span>));
+
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 1:"</span>, idleID1);
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 2:"</span>, idleID2);
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 3:"</span>, idleID3);
+
+            <span class="function">cancelIdleCallback</span>(idleID2);
+        </pre>
+        <script>
+            let idleID1 = requestIdleCallback(() => console.log("Idle Task 1"));
+            let idleID2 = requestIdleCallback(() => console.log("Idle Task 2"));
+            let idleID3 = requestIdleCallback(() => console.log("Idle Task 3"));
+
+            console.log("Idle ID 1:", idleID1);
+            console.log("Idle ID 2:", idleID2);
+            console.log("Idle ID 3:", idleID3);
+
+            cancelIdleCallback(idleID2);
+        </script>
+    </body>
+</html>
