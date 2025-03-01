@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>requestAnimationFrame & GPU Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .gpu-box {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            animation: fade 2s infinite alternate;
+            margin: 20px auto;
+        }
+        @keyframes fade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        pre {
+            background-color: #3c3f41;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            text-align: left;
+        }
+        .keyword { color: #d37f15; }
+        .object { color: #9876AA; font-weight: bold; }
+        .function { color: #FFC66D; }
+        .string { color: #6A8759; }
+    </style>
+</head>
+<body>
+
+<h2>requestAnimationFrame & GPU Animation</h2>
+<pre>
+<span class="keyword">function</span> <span class="function">trackRAF</span>() {
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame triggered"</span>);
+    <span class="function">requestAnimationFrame</span>(<span class="function">trackRAF</span>);
+}
+
+<span class="function">requestAnimationFrame</span>(<span class="function">trackRAF</span>);
+</pre>
+
+<div class="gpu-box"></div>
+
+<script>
+    function trackRAF() {
+        console.log("requestAnimationFrame triggered");
+        requestAnimationFrame(trackRAF);
+    }
+
+    requestAnimationFrame(trackRAF);
+</script>
+
+</body>
+</html>
