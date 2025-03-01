@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Loop Render Animations</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: white;
+                text-align: center;
+                padding: 20px;
+            }
+            .gpu-box, .cpu-layout-box, .cpu-paint-box {
+                width: 100px;
+                height: 100px;
+                margin: 20px auto;
+                text-align: center;
+                line-height: 100px;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+            }
+            .gpu-box {
+                background-color: green;
+                animation: gpu-move 2s infinite alternate;
+            }
+            @keyframes gpu-move {
+                0% { transform: translateX(-100px); }
+                100% { transform: translateX(100px); }
+            }
+            .cpu-layout-box {
+                background-color: red;
+                animation: cpu-layout 2s infinite alternate;
+            }
+            @keyframes cpu-layout {
+                0% { width: 100px; }
+                100% { width: 200px; }
+            }
+            .cpu-paint-box {
+                background-color: blue;
+                animation: cpu-paint 2s infinite alternate;
+            }
+            @keyframes cpu-paint {
+                0% { background-color: blue; }
+                100% { background-color: yellow; }
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+                text-align: left;
+            }
+            .keyword { color: #d37f15; }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+            .number { color: #6897BB; }
+        </style>
+    </head>
+    <body>
+        <h2>Event Loop Render Animations</h2>
+
+        <pre>
+            <span class="object">setTimeout</span>(() => {
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Starting heavy computation..."</span>);
+                <span class="keyword">let</span> start = <span class="object">performance</span>.<span class="function">now</span>();
+                <span class="keyword">while</span> (<span class="object">performance</span>.<span class="function">now</span>() - start < <span class="number">5000</span>) {}
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Heavy computation done!"</span>);
+            }, <span class="number">5000</span>);
+        </pre>
+
+        <div class="gpu-box">GPU</div>
+        <div class="cpu-layout-box">CPU Layout</div>
+        <div class="cpu-paint-box">CPU Paint</div>
+
+        <script>
+            setTimeout(() => {
+                console.log("Starting heavy computation...");
+                let start = performance.now();
+                while (performance.now() - start < 5000) {}
+                console.log("Heavy computation done!");
+            }, 5000);
+        </script>
+    </body>
+</html>
