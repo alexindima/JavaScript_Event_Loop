@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker.onmessage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: white;
+            padding: 20px;
+        }
+        pre {
+            background-color: #3c3f41;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            text-align: left;
+        }
+        .keyword { color: #d37f15; }
+        .object { color: #9876AA; font-weight: bold; }
+        .function { color: #FFC66D; }
+        .string { color: #6A8759; }
+        .number { color: #6897BB; }
+    </style>
+</head>
+<body>
+
+<h2>Worker.onmessage</h2>
+
+<h3>Script (Main Thread)</h3>
+<pre>
+    <span class="object">let</span> worker = <span class="keyword">new</span><span class="function"> Worker</span>(<span class="string">"worker.js"</span>);
+
+    worker.<span class="function">onmessage</span> = () => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Worker onmessage"</span>);
+    };
+
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Sending message to Worker..."</span>);
+    worker.<span class="function">postMessage</span>("");
+
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">5</span>; i++) {
+        <span class="function">setTimeout</span>(() => {
+            <span class="keyword">let</span> start = <span class="object">performance</span>.<span class="function">now</span>();
+            <span class="keyword">while</span> (<span class="object">performance</span>.<span class="function">now</span>() - start < <span class="number">1000</span>) {}
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">`Timeout ${i * 1000}ms executed!`</span>);
+        }, <span class="number">0</span>);
+    }
+</pre>
+
+<h3>Worker Script (worker.js)</h3>
+<pre>
+    <span class="object">onmessage</span> = () => {
+        <span class="function">postMessage</span>(<span class="string">""</span>);
+    };
+</pre>
+
+<script>
+    let worker = new Worker("worker.js");
+
+    worker.onmessage = () => {
+        console.log("Worker onmessage");
+    };
+
+    console.log("Sending message to Worker...");
+    worker.postMessage("");
+
+    for (let i = 1; i <= 5; i++) {
+        setTimeout(() => {
+            let start = performance.now();
+            while (performance.now() - start < 1000) {}
+            console.log(`Timeout ${i * 1000}ms executed!`);
+        }, 0);
+    }
+</script>
+
+</body>
+</html>
