@@ -83,18 +83,3 @@ export const steps = [
     { elementId: 3, to: 'webapi' },
     { elementId: 3, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Timeout 2</span>" },
 ];
-
-console.log('Start');
-
-setTimeout(() => {
-    console.log("Timeout");
-}, 0);
-
-function recursiveMicrotask() {
-    console.log("Microtask");
-    Promise.resolve().then(recursiveMicrotask);
-}
-
-Promise.resolve().then(recursiveMicrotask);
-
-console.log('End');
