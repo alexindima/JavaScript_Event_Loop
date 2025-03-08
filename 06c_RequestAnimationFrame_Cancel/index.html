@@ -26,15 +26,15 @@
     <body>
         <h2>requestAnimationFrame Cancel</h2>
         <pre>
-            <span class="keyword">let</span> rafID1 = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 1"</span>));
-            <span class="keyword">let</span> rafID2 = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 2"</span>));
-            <span class="keyword">let</span> rafID3 = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 3"</span>));
+    <span class="keyword">let</span> rafID1 = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 1"</span>));
+    <span class="keyword">let</span> rafID2 = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 2"</span>));
+    <span class="keyword">let</span> rafID3 = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 3"</span>));
 
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 1:"</span>, rafID1);
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 2:"</span>, rafID2);
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 3:"</span>, rafID3);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 1:"</span>, rafID1);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 2:"</span>, rafID2);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 3:"</span>, rafID3);
 
-            <span class="function">cancelAnimationFrame</span>(rafID2);
+    <span class="function">cancelAnimationFrame</span>(rafID2);
         </pre>
 
         <script>

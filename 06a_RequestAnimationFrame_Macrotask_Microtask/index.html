@@ -26,17 +26,17 @@
     <body>
         <h2>requestAnimationFrame vs Microtasks vs Macrotasks</h2>
         <pre>
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
 
-            <span class="function">setTimeout</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"setTimeout (макротаска)"</span>), <span class="number">0</span>);
+    <span class="function">setTimeout</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Macrotask"</span>), <span class="number">0</span>);
 
-            <span class="object">Promise</span>.<span class="function">resolve</span>().<span class="function">then</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 1"</span>));
+    <span class="object">Promise</span>.<span class="function">resolve</span>().<span class="function">then</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 1"</span>));
 
-            <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame 1"</span>));
+    <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame"</span>));
 
-            <span class="object">Promise</span>.<span class="function">resolve</span>().<span class="function">then</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 2"</span>));
+    <span class="object">Promise</span>.<span class="function">resolve</span>().<span class="function">then</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 2"</span>));
 
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"End"</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"End"</span>);
         </pre>
 
         <script>
