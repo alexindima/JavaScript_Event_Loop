@@ -25,23 +25,23 @@
         </style>
     </head>
     <body>
-    <h2>requestIdleCallback - Order</h2>
+        <h2>requestIdleCallback - Order</h2>
         <pre>
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
 
-            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">5</span>; i++) {
-                <span class="function">setTimeout</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">`Timeout ${i}`</span>), <span class="number">0</span>);
-            }
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">5</span>; i++) {
+        <span class="function">setTimeout</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">`Timeout ${i}`</span>), <span class="number">0</span>);
+    }
 
-            <span class="function">requestAnimationFrame</span>(() => {
-                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame"</span>);
-            });
+    <span class="function">requestAnimationFrame</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame"</span>);
+    });
 
-            <span class="function">requestIdleCallback</span>(() => {
-                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestIdleCallback"</span>);
-            });
+    <span class="function">requestIdleCallback</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestIdleCallback"</span>);
+    });
 
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"End"</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"End"</span>);
         </pre>
 
         <script>

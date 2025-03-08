@@ -26,15 +26,15 @@
     <body>
         <h2>requestIdleCallback Cancel</h2>
         <pre>
-            <span class="keyword">let</span> idleID1 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 1"</span>));
-            <span class="keyword">let</span> idleID2 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 2"</span>));
-            <span class="keyword">let</span> idleID3 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 3"</span>));
+    <span class="keyword">let</span> idleID1 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 1"</span>));
+    <span class="keyword">let</span> idleID2 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 2"</span>));
+    <span class="keyword">let</span> idleID3 = <span class="function">requestIdleCallback</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 3"</span>));
 
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 1:"</span>, idleID1);
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 2:"</span>, idleID2);
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 3:"</span>, idleID3);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 1:"</span>, idleID1);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 2:"</span>, idleID2);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle ID 3:"</span>, idleID3);
 
-            <span class="function">cancelIdleCallback</span>(idleID2);
+    <span class="function">cancelIdleCallback</span>(idleID2);
         </pre>
         <script>
             let idleID1 = requestIdleCallback(() => console.log("Idle Task 1"));

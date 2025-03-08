@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>requestIdleCallback Nested</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: #ffffff;
+                padding: 20px;
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+            }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+            .number { color: #6897BB; }
+        </style>
+    </head>
+    <body>
+        <h2>requestIdleCallback Nested</h2>
+
+        <pre>
+    <span class="function">requestIdleCallback</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 1"</span>);
+
+        <span class="function">setTimeout</span>(() => {
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Macrotask"</span>);
+        }, <span class="number">0</span>);
+
+        <span class="function">requestIdleCallback</span>(() => {
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Idle Task 2"</span>);
+        });
+
+    });
+        </pre>
+
+        <script>
+            requestIdleCallback(() => {
+                console.log("Idle Task 1");
+
+                setTimeout(() => {
+                    console.log("Macrotask");
+                }, 0);
+
+                requestIdleCallback(() => {
+                    console.log("Idle Task 2");
+                });
+
+            });
+        </script>
+    </body>
+</html>

@@ -26,17 +26,17 @@
     <body>
         <h2>requestIdleCallback - Checking Time Remaining</h2>
         <pre>
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Start"</span>);
 
-            <span class="function">requestIdleCallback</span>((deadline) => {
-                <span class="object">console</span>.<span class="function">log</span>(<span class="string">`requestIdleCallback 1 - осталось времени: ${Math.round(deadline.timeRemaining())}ms`</span>);
-            });
+    <span class="function">requestIdleCallback</span>((deadline) => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">`requestIdleCallback - осталось времени: </span>${<span class="object">Math</span>.<span class="function">round</span>(deadline.<span class="function">timeRemaining</span>())}<span class="string">ms`</span>);
+    });
         </pre>
         <script>
             console.log("Start");
 
             requestIdleCallback((deadline) => {
-                console.log(`requestIdleCallback 1 - осталось времени: ${Math.round(deadline.timeRemaining())}ms`);
+                console.log(`requestIdleCallback - осталось времени: ${Math.round(deadline.timeRemaining())}ms`);
             });
         </script>
     </body>
