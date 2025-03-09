@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Loop Render Animations</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: white;
+                text-align: center;
+                padding: 20px;
+            }
+            .gpu-box, .cpu-layout-box, .cpu-paint-box {
+                width: 100px;
+                height: 100px;
+                margin: 20px auto;
+                text-align: center;
+                line-height: 100px;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+            }
+            .gpu-box {
+                background-color: green;
+                animation: gpu-move 2s infinite alternate;
+            }
+            @keyframes gpu-move {
+                0% { transform: translateX(-100px); }
+                100% { transform: translateX(100px); }
+            }
+            .cpu-layout-box {
+                background-color: red;
+                animation: cpu-layout 2s infinite alternate;
+            }
+            @keyframes cpu-layout {
+                0% { width: 100px; }
+                100% { width: 200px; }
+            }
+            .cpu-paint-box {
+                background-color: blue;
+                animation: cpu-paint 2s infinite alternate;
+            }
+            @keyframes cpu-paint {
+                0% { background-color: blue; }
+                100% { background-color: yellow; }
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+                text-align: left;
+            }
+            .keyword { color: #d37f15; }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+                margin: 10px;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Event Loop Render Animations</h2>
+
+        <pre>
+    <span class="keyword">function</span> <span class="function">showAlert</span>() {
+        <span class="function">alert</span>(<span class="string">"Это alert! Пока он открыт, Event Loop полностью остановлен."</span>);
+    }
+
+    <span class="keyword">function</span> <span class="function">showConfirm</span>() {
+        <span class="keyword">let</span> result = <span class="function">confirm</span>(<span class="string">"Это confirm. Он тоже блокирует Event Loop."</span>);
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Confirm result:"</span>, result);
+    }
+
+    <span class="keyword">function</span> <span class="function">showPrompt</span>() {
+        <span class="keyword">let</span> answer = <span class="function">prompt</span>(<span class="string">"Введите что-нибудь (prompt блокирует поток):"</span>);
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Prompt result:"</span>, answer);
+    }
+        </pre>
+
+        <div>
+            <button onclick="showAlert()">alert()</button>
+            <button onclick="showConfirm()">confirm()</button>
+            <button onclick="showPrompt()">prompt()</button>
+        </div>
+
+        <div class="gpu-box">GPU</div>
+        <div class="cpu-layout-box">CPU Layout</div>
+        <div class="cpu-paint-box">CPU Paint</div>
+
+        <script>
+            function showAlert() {
+                alert("Это alert! Пока он открыт, Event Loop полностью остановлен.");
+            }
+
+            function showConfirm() {
+                let result = confirm("Это confirm. Он блокирует Event Loop.");
+                console.log("Confirm result:", result);
+            }
+
+            function showPrompt() {
+                let answer = prompt("Введите что-нибудь (prompt блокирует поток):");
+                console.log("Prompt result:", answer);
+            }
+        </script>
+    </body>
+</html>
