@@ -50,39 +50,54 @@
         <pre>
     <span class="keyword">function</span> <span class="function">runExample</span>() {
         <span class="object">setTimeout</span>(() => {
-            <span class="keyword">const</span> div = <span class="object">document</span>.<span class="function">createElement</span>(<span class="string">"div"</span>);
-            div.<span class="object">className</span> = <span class="string">"box"</span>;
-            <span class="object">document</span>.<span class="object">body</span>.<span class="function">appendChild</span>(div);
+            <span class="keyword">const</span> div1 = <span class="object">document</span>.<span class="function">createElement</span>(<span class="string">"div"</span>);
+            div1.<span class="object">className</span> = <span class="string">"box"</span>;
+            <span class="object">document</span>.<span class="object">body</span>.<span class="function">appendChild</span>(div1);
 
-            <span class="keyword">const</span> syncRect = div.<span class="function">getBoundingClientRect</span>();
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Sync:"</span>, <span class="object">JSON</span>.<span class="function">stringify</span>(syncRect));
+            <span class="keyword">const</span> syncRect1 = div1.<span class="function">getBoundingClientRect</span>();
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Sync 1:"</span>, <span class="object">JSON</span>.<span class="function">stringify</span>(syncRect1));
 
             <span class="keyword">const</span> div2 = <span class="object">document</span>.<span class="function">createElement</span>(<span class="string">"div"</span>);
             div2.<span class="object">className</span> = <span class="string">"box"</span>;
             <span class="object">document</span>.<span class="object">body</span>.<span class="function">appendChild</span>(div2);
+
+            <span class="keyword">const</span> syncRect2 = div2.<span class="function">getBoundingClientRect</span>();
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Sync 2:"</span>, <span class="object">JSON</span>.<span class="function">stringify</span>(syncRect2));
+
+            <span class="keyword">const</span> div3 = <span class="object">document</span>.<span class="function">createElement</span>(<span class="string">"div"</span>);
+            div3.<span class="object">className</span> = <span class="string">"box"</span>;
+            <span class="object">document</span>.<span class="object">body</span>.<span class="function">appendChild</span>(div3);
 
             <span class="object">requestAnimationFrame</span>(() => {
                 <span class="object">console</span>.<span class="function">log</span>(<span class="string">"rAF"</span>);
             });
         }, <span class="number">2000</span>);
     }
-        </pre>
+</pre>
+
 
         <button onclick="runExample()">Добавить и измерить блок</button>
 
         <script>
             function runExample() {
                 setTimeout(() => {
-                    const div = document.createElement("div");
-                    div.className = "box";
-                    document.body.appendChild(div);
+                    const div1 = document.createElement("div");
+                    div1.className = "box";
+                    document.body.appendChild(div1);
 
-                    const syncRect = div.getBoundingClientRect();
-                    console.log("Sync:", JSON.stringify(syncRect));
+                    const syncRect1 = div1.getBoundingClientRect();
+                    console.log("Sync:", JSON.stringify(syncRect1));
 
                     const div2 = document.createElement("div");
                     div2.className = "box";
                     document.body.appendChild(div2);
+
+                    const syncRect2 = div2.getBoundingClientRect();
+                    console.log("Sync:", JSON.stringify(syncRect2));
+
+                    const div3 = document.createElement("div");
+                    div3.className = "box";
+                    document.body.appendChild(div3);
 
                     requestAnimationFrame(() => {
                         console.log("rAF");
