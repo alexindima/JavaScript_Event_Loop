@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Loop Render Animation (Layout)</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: white;
+                text-align: center;
+                padding: 20px;
+            }
+            .cpu-layout-box {
+                width: 100px;
+                height: 100px;
+                margin: 20px auto;
+                text-align: center;
+                line-height: 100px;
+                font-size: 14px;
+                font-weight: bold;
+                color: white;
+                background-color: red;
+                animation: cpu-layout 2s infinite alternate;
+            }
+            @keyframes cpu-layout {
+                0% { width: 100px; }
+                100% { width: 200px; }
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Event Loop Render Animation (Layout)</h2>
+        <div class="cpu-layout-box">Layout</div>
+    </body>
+</html>
