@@ -28,22 +28,22 @@
         <h2>All Microtasks demo</h2>
         <pre>
     <span class="function">setTimeout</span>(() => {
-        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout 1"</span>);
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Macrotask 1"</span>);
     }, <span class="number">0</span>);
 
     <span class="function">queueMicrotask</span>(() => {
-        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 1"</span>);
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask after Macrotask"</span>);
     });
 
     <span class="function">requestAnimationFrame</span>(() => {
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF"</span>);
 
         <span class="function">setTimeout</span>(() => {
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout 2"</span>);
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Macrotask 2"</span>);
         }, <span class="number">0</span>);
 
         <span class="function">queueMicrotask</span>(() => {
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 2"</span>);
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask after RAF"</span>);
         });
     });
 
@@ -51,33 +51,33 @@
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestIdleCallback"</span>);
 
         <span class="function">setTimeout</span>(() => {
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout 3"</span>);
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Macrotask 3"</span>);
         }, <span class="number">0</span>);
 
         <span class="function">queueMicrotask</span>(() => {
-            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask 3"</span>);
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask after rIC"</span>);
         });
     });
         </pre>
 
         <script>
             setTimeout(() => {
-                console.log("Timeout 1");
+                console.log("Macrotask 1");
             }, 0);
 
             queueMicrotask(() => {
-                console.log("Microtask 1");
+                console.log("Microtask after Macrotask");
             });
 
             requestAnimationFrame(() => {
                 console.log("RAF");
 
                 setTimeout(() => {
-                    console.log("Timeout 2");
+                    console.log("Macrotask 2");
                 }, 0);
 
                 queueMicrotask(() => {
-                    console.log("Microtask 2");
+                    console.log("Microtask after RAF");
                 });
             });
 
@@ -85,11 +85,11 @@
                 console.log("requestIdleCallback");
 
                 setTimeout(() => {
-                    console.log("Timeout 3");
+                    console.log("Macrotask 3");
                 }, 0);
 
                 queueMicrotask(() => {
-                    console.log("Microtask 3");
+                    console.log("Microtask after rIC");
                 });
             });
         </script>

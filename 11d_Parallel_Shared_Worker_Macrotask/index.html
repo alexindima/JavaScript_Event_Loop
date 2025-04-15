@@ -30,13 +30,13 @@
 
         <h3>Script (Main Thread)</h3>
         <pre>
-    <span class="object">let</span> sharedWorker = <span class="keyword">new</span><span class="function"> SharedWorker</span>(<span class="string">"shared-worker.js"</span>);
+    <span class="keyword">const</span> sharedWorker = <span class="keyword">new</span><span class="function"> SharedWorker</span>(<span class="string">"shared-worker.js"</span>);
 
     sharedWorker.<span class="object">port</span>.<span class="function">onmessage</span> = () => {
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Shared Worker onmessage"</span>);
     };
 
-    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"📡 Sending message to Shared Worker..."</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Sending message to Shared Worker..."</span>);
     sharedWorker.<span class="object">port</span>.<span class="function">postMessage</span>("");
 
     <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">5</span>; i++) {
@@ -60,13 +60,13 @@
         </pre>
 
         <script>
-            let sharedWorker = new SharedWorker("shared-worker.js");
+            const sharedWorker = new SharedWorker("shared-worker.js");
 
             sharedWorker.port.onmessage = () => {
                 console.log("Shared Worker onmessage");
             };
 
-            console.log("📡 Sending message to Shared Worker...");
+            console.log("Sending message to Shared Worker...");
             sharedWorker.port.postMessage("");
 
             for (let i = 1; i <= 5; i++) {

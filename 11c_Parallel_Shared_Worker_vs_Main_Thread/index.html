@@ -70,7 +70,7 @@
     }
 
     <span class="function">function</span> <span class="function">startSharedWorker</span>() {
-        <span class="keyword">let</span> sharedWorker = <span class="keyword">new</span> <span class="function">SharedWorker</span>(<span class="string">"shared-worker.js"</span>);
+        <span class="keyword">const</span> sharedWorker = <span class="keyword">new</span> <span class="function">SharedWorker</span>(<span class="string">"shared-worker.js"</span>);
 
         sharedWorker.<span class="object">port</span>.<span class="function">onmessage</span> = (<span class="keyword">event</span>) => {
             <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Message from Shared Worker:"</span>, <span class="keyword">event</span>.<span class="object">data</span>);
@@ -97,7 +97,7 @@
     };
         </pre>
 
-        <div class="cpu-layout-box">CPU Layout</div>
+        <div class="cpu-layout-box">Layout</div>
 
         <script>
             function startHeavyTask() {
@@ -108,7 +108,7 @@
             }
 
             function startSharedWorker() {
-                let sharedWorker = new SharedWorker("shared-worker.js");
+                const sharedWorker = new SharedWorker("shared-worker.js");
 
                 sharedWorker.port.onmessage = (event) => {
                     console.log("Message from Worker:", event.data);

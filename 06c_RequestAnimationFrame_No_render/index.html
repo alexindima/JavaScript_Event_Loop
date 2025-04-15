@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>requestAnimationFrame & GPU Animation</title>
+        <title>requestAnimationFrame No render</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -11,17 +11,6 @@
                 color: white;
                 text-align: center;
                 padding: 20px;
-            }
-            .gpu-box {
-                width: 100px;
-                height: 100px;
-                background-color: green;
-                animation: fade 2s infinite alternate;
-                margin: 20px auto;
-            }
-            @keyframes fade {
-                0% { opacity: 0; }
-                100% { opacity: 1; }
             }
             pre {
                 background-color: #3c3f41;
@@ -37,7 +26,7 @@
         </style>
     </head>
     <body>
-        <h2>requestAnimationFrame & GPU Animation</h2>
+        <h2>requestAnimationFrame No render</h2>
         <pre>
     <span class="keyword">function</span> <span class="function">trackRAF</span>() {
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestAnimationFrame triggered"</span>);
@@ -46,8 +35,6 @@
 
     <span class="function">requestAnimationFrame</span>(<span class="function">trackRAF</span>);
         </pre>
-
-        <div class="gpu-box"></div>
 
         <script>
             function trackRAF() {

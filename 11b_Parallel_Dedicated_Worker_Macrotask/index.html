@@ -30,7 +30,7 @@
 
         <h3>Script (Main Thread)</h3>
         <pre>
-    <span class="object">let</span> <span class="object">worker</span> = <span class="keyword">new</span><span class="function"> Worker</span>(<span class="string">"worker.js"</span>);
+    <span class="keyword">const</span> <span class="object">worker</span> = <span class="keyword">new</span><span class="function"> Worker</span>(<span class="string">"worker.js"</span>);
 
     <span class="object">worker</span>.<span class="function">onmessage</span> = () => {
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Worker onmessage"</span>);
@@ -56,7 +56,7 @@
         </pre>
 
         <script>
-            let worker = new Worker("worker.js");
+            const worker = new Worker("worker.js");
 
             worker.onmessage = () => {
                 console.log("Worker onmessage");

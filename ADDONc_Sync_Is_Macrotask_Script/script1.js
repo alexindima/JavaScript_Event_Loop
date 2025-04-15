@@ -1,5 +1,9 @@
 console.log("Script 1 - Start");
 
+queueMicrotask(() => {
+    console.log("Microtask from Script 1");
+});
+
 for (let i = 1; i <= 5; i++) {
     setTimeout(() => {
         let start = performance.now();

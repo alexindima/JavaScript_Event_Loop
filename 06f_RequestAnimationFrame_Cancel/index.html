@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cancel requestAnimationFrame Demo</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2b2b2b;
+                color: #ffffff;
+                padding: 20px;
+            }
+            pre {
+                background-color: #3c3f41;
+                padding: 10px;
+                border-radius: 5px;
+                overflow-x: auto;
+            }
+            .keyword { color: #d37f15; }
+            .object { color: #9876AA; font-weight: bold; }
+            .function { color: #FFC66D; }
+            .string { color: #6A8759; }
+        </style>
+    </head>
+    <body>
+        <h2>requestAnimationFrame Cancel</h2>
+        <pre>
+    <span class="keyword">const</span> <span class="object">rafID1</span> = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 1"</span>));
+    <span class="keyword">const</span> <span class="object">rafID2</span> = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 2"</span>));
+    <span class="keyword">const</span> <span class="object">rafID3</span> = <span class="function">requestAnimationFrame</span>(() => <span class="object">console</span>.<span class="function">log</span>(<span class="string">"RAF 3"</span>));
+
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 1:"</span>, <span class="object">rafID1</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 2:"</span>, <span class="object">rafID2</span>);
+    <span class="object">console</span>.<span class="function">log</span>(<span class="string">"requestID 3:"</span>, <span class="object">rafID3</span>);
+
+    <span class="function">cancelAnimationFrame</span>(<span class="object">rafID2</span>);
+        </pre>
+
+        <script>
+            const rafID1 = requestAnimationFrame(() => console.log("RAF 1"));
+            const rafID2 = requestAnimationFrame(() => console.log("RAF 2"));
+            const rafID3 = requestAnimationFrame(() => console.log("RAF 3"));
+
+            console.log("requestID 1:", rafID1);
+            console.log("requestID 2:", rafID2);
+            console.log("requestID 3:", rafID3);
+
+            cancelAnimationFrame(rafID2);
+        </script>
+    </body>
+</html>

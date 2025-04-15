@@ -31,6 +31,10 @@
     &lt;<span class="keyword">script</span>&gt;
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Script 1 - Start"</span>);
 
+        <span class="function">queueMicrotask</span>(() => {
+            <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask from Script 1"</span>);
+        });
+
         <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) {
             <span class="function">setTimeout</span>(() => {
                 <span class="keyword">let</span> start = <span class="object">performance</span>.<span class="function">now</span>();
@@ -56,6 +60,10 @@
         </pre>
         <script>
             console.log("Script 1 - Start");
+
+            queueMicrotask(() => {
+                console.log("Microtask from Script 1");
+            });
 
             for (let i = 1; i <= 5; i++) {
                 setTimeout(() => {

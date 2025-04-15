@@ -27,7 +27,7 @@
         </style>
     </head>
     <body>
-        <h2>Event Loop with Two Scripts from outside</h2>
+        <h2>Event Loop with Two Scripts from outside (Defer)</h2>
 
         <h3>Main HTML File</h3>
         <pre>
@@ -38,6 +38,10 @@
         <h3>Script 1</h3>
         <pre>
     <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Script 1 - Start"</span>);
+
+    <span class="function">queueMicrotask</span>(() => {
+        <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Microtask from Script 1"</span>);
+    });
 
     <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) {
         <span class="function">setTimeout</span>(() => {

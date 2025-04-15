@@ -46,7 +46,7 @@
     <span class="function">function</span> <span class="function">executeScript</span>() {
         <span class="function">requestAnimationFrame</span>(() => {
             <span class="function">setTimeout</span>(() => {
-                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Timeout"</span>);
+                <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Macrotask"</span>);
             }, <span class="number">0</span>);
         });
 
@@ -67,7 +67,7 @@
             function executeScript() {
                 requestAnimationFrame(() => {
                     setTimeout(() => {
-                        console.log("Timeout");
+                        console.log("Macrotask");
                     }, 0);
                 });
 

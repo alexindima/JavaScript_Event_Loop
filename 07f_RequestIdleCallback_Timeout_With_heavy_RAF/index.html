@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Event Loop, CSS Animation & requestIdleCallback</title>
+        <title>Heavy RAF vs requestIdleCallback timeout</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -11,17 +11,6 @@
                 color: white;
                 padding: 20px;
                 text-align: center;
-            }
-            .animated-box {
-                width: 100px;
-                height: 100px;
-                background-color: red;
-                margin: 20px auto;
-                animation: fade 2s infinite alternate;
-            }
-            @keyframes fade {
-                0% { opacity: 0; }
-                100% { opacity: 1; }
             }
             pre {
                 background-color: #3c3f41;
@@ -50,7 +39,7 @@
         </style>
     </head>
     <body>
-        <h2>CSS Animation & requestIdleCallback</h2>
+        <h2>Heavy RAF vs requestIdleCallback timeout</h2>
         <button onclick="startExecution()">Запустить код</button>
 
         <pre>
@@ -74,8 +63,6 @@
         <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Код запущен!"</span>);
     }
         </pre>
-
-        <div class="animated-box"></div>
 
         <script>
             function startExecution() {

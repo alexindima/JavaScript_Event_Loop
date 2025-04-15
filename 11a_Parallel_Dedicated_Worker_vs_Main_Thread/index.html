@@ -71,7 +71,7 @@
     }
 
     <span class="function">function</span> <span class="function">startWorker</span>() {
-        <span class="keyword">let</span> worker = <span class="keyword">new</span> <span class="function">Worker</span>(<span class="string">"worker.js"</span>);
+        <span class="keyword">const</span> worker = <span class="keyword">new</span> <span class="function">Worker</span>(<span class="string">"worker.js"</span>);
         worker.<span class="function">onmessage</span> = (<span class="keyword">event</span>) => {
             <span class="object">console</span>.<span class="function">log</span>(<span class="string">"Message from Worker:"</span>, <span class="keyword">event</span>.<span class="object">data</span>);
         };
@@ -91,7 +91,7 @@
     };
         </pre>
 
-        <div class="cpu-layout-box">CPU Layout</div>
+        <div class="cpu-layout-box">Layout</div>
 
         <script>
             function startHeavyTask() {
@@ -102,7 +102,7 @@
             }
 
             function startWorker() {
-                let worker = new Worker("worker.js");
+                const worker = new Worker("worker.js");
                 worker.onmessage = (event) => {
                     console.log("Message from Worker:", event.data);
                 };

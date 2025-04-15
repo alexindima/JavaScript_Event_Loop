@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.2 Chrome/134.0.6998.178 Electron/35.1.2 Safari/537.36" version="26.2.2" pages="2">
-  <diagram name="Страница — 1" id="EoOuGPBxdGp71XJYEUh-">
-    <mxGraphModel dx="1050" dy="717" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <diagram name="a" id="EoOuGPBxdGp71XJYEUh-">
+    <mxGraphModel dx="1044" dy="722" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -40,19 +40,19 @@
         <mxCell id="mLOPyRHvWxFidjaPoVnZ-7" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;DOM&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#5DADE2;" parent="1" vertex="1">
           <mxGeometry x="200" y="180" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="hMgDd-XYo7ru9u5y9hOi-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" source="mLOPyRHvWxFidjaPoVnZ-8" target="hMgDd-XYo7ru9u5y9hOi-1">
+        <mxCell id="hMgDd-XYo7ru9u5y9hOi-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="mLOPyRHvWxFidjaPoVnZ-8" target="hMgDd-XYo7ru9u5y9hOi-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="mLOPyRHvWxFidjaPoVnZ-8" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Paint&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E74C3C;" parent="1" vertex="1">
           <mxGeometry x="680" y="250" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="hMgDd-XYo7ru9u5y9hOi-1" value="&lt;font style=&quot;font-size: 20px; color: light-dark(rgb(255, 255, 255), rgb(0, 0, 0));&quot;&gt;Compositing&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495E;" vertex="1" parent="1">
+        <mxCell id="hMgDd-XYo7ru9u5y9hOi-1" value="&lt;font style=&quot;font-size: 20px; color: light-dark(rgb(255, 255, 255), rgb(0, 0, 0));&quot;&gt;Compositing&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#34495E;" parent="1" vertex="1">
           <mxGeometry x="840" y="250" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="Копия Страница — 1" id="_OW0HQvx-UvCNRzQ4n5O">
+  <diagram name="b" id="_OW0HQvx-UvCNRzQ4n5O">
     <mxGraphModel dx="1044" dy="722" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="S6OlicUq3QSzaoifu-8u-0" />
