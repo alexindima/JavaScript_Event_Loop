@@ -27,7 +27,6 @@ export const codeLines = [
 
 export const steps = [
     { elementId: 1, codeId: 1, to: 'stack', highlight: { codeId: 1 } },
-    { elementId: 1, codeId: 1, to: 'webapi', highlight: { codeId: 1 } },
     { elementId: 1, codeId: 1, to: 'console', highlight: { codeId: 1 }, insertPosition: "bottom", newCode: "<span class='console'>Start</span>" },
 
     { elementId: 2, codeId: 3, to: 'stack', highlight: { codeId: 3 } },
@@ -65,15 +64,12 @@ export const steps = [
     { elementId: 6, to: 'stack', highlight: { codeId: 10 }, destroy: true },
 
     { elementId: 14, codeId: 12, to: 'stack', highlight: { codeId: 12 } },
-    { elementId: 14, codeId: 12, to: 'webapi', highlight: { codeId: 12 } },
     { elementId: 14, codeId: 12, to: 'console', insertPosition: "bottom", highlight: { codeId: 12 }, newCode: "<span class='console'>End</span>" },
 
     { elementId: 2, to: 'stack' },
-    { elementId: 2, to: 'webapi' },
     { elementId: 2, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Timeout 0</span>" },
 
     { elementId: 3, to: 'stack' },
-    { elementId: 3, to: 'webapi' },
     { elementId: 3, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Timeout 2000</span>" },
 
     { elementId: 15, from: 'code', to: 'stack', newCode: "<span class='console'>Empty loop</span>" },
@@ -87,6 +83,5 @@ export const steps = [
 
     { elementId: 4, to: 'macroqueue', insertPosition: "bottom", newCode: "<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>\"Timeout 4000\"</span>);" },
     { elementId: 4, to: 'stack' },
-    { elementId: 4, to: 'webapi' },
     { elementId: 4, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Timeout 4000</span>" },
 ];

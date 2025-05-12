@@ -24,7 +24,6 @@ export const codeLines = [
 
 export const steps = [
     { elementId: 1, codeId: 1, to: 'stack', highlight: { codeId: 1 } },
-    { elementId: 1, codeId: 1, to: 'webapi', highlight: { codeId: 1 } },
     { elementId: 1, codeId: 1, to: 'console', highlight: { codeId: 1 }, insertPosition: "bottom", newCode: "<span class='console'>Start</span>" },
 
     { elementId: 2, codeId: 3, to: 'stack', highlight: { codeId: 3 } },
@@ -47,11 +46,9 @@ export const steps = [
     },
 
     { elementId: 4, codeId: 7, to: 'stack', highlight: { codeId: 7 } },
-    { elementId: 4, codeId: 7, to: 'webapi', highlight: { codeId: 7 } },
     { elementId: 4, codeId: 7, to: 'console', insertPosition: "bottom", highlight: { codeId: 7 }, subHighlight: [{ codeId: 7, line: 2 }], newCode: "<span class='console'>End</span>" },
 
     { elementId: 5, from: "microqueue", to: 'stack', newCode: "<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>\"Promise 2\"</span>);" },
-    { elementId: 5, to: 'webapi' },
     { elementId: 5, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Promise 2</span>" },
 
     { elementId: 3, to: 'stack',
@@ -65,7 +62,6 @@ export const steps = [
     { elementId: 3, to: "macroqueue", insertPosition: "bottom", newCode: "<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>\"Timeout 2\"</span>);" },
 
     { elementId: 6, from: "macroqueue", to: 'stack', newCode: "<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>\"Timeout 1\"</span>);" },
-    { elementId: 6, to: 'webapi' },
     { elementId: 6, to: "console", insertPosition: "bottom", newCode: "<span class='console'>Timeout 1</span>"},
 
     { elementId: 2, to: "stack",
@@ -76,10 +72,8 @@ export const steps = [
     },
     { elementId: 2, to: "microqueue", newCode: "<span class='object'>console</span>.<span class='function'>log</span>(<span class='string'>\"Promise 1\"</span>);" },
     { elementId: 2, to: 'stack' },
-    { elementId: 2, to: 'webapi' },
     { elementId: 2, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Promise 1</span>" },
 
     { elementId: 3, to: 'stack' },
-    { elementId: 3, to: 'webapi' },
     { elementId: 3, to: 'console', insertPosition: "bottom", newCode: "<span class='console'>Timeout 2</span>" },
 ];

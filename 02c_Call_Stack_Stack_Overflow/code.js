@@ -13,10 +13,10 @@ export const steps = [
     { elementId: 2, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
     { elementId: 3, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
     { elementId: 4, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
-    { elementId: 5, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: '...' },
+    { elementId: 5, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
     { elementId: 6, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
     { elementId: 7, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
-    { elementId: 8, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
+    { elementId: 8, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: '...' },
     { elementId: 9, codeId: 1, to: 'stack', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], newCode: "<span class='function'>infinite</span>();" },
     { elementId: 10, from: 'webapi', to: 'console', highlight: { codeId: 3 }, subHighlight: [{ codeId: 1, line: 2 }], insertPosition: "bottom", newCode: "<span class='error'>Uncaught RangeError: Maximum call stack size exceeded</span>" }
 ];
