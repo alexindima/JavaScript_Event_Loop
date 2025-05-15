@@ -113,6 +113,21 @@ body {
     .box-header {
         border: var(--border-thickness) solid var(--border-macroqueue);
     }
+
+    .code-block {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -4px;
+            width: 1px;
+            height: 100%;
+            background-color: var(--border-macroqueue);
+        }
+    }
+
 }
 
 .microqueue {
@@ -121,6 +136,20 @@ body {
 
     .box-header {
         border: var(--border-thickness) solid var(--border-microqueue);
+    }
+
+    .code-block {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -4px;
+            width: 1px;
+            height: 100%;
+            background-color: var(--border-microqueue);
+        }
     }
 }
 
